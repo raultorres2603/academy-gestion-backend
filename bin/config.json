@@ -3,5 +3,6 @@
     "host": "localhost",
     "user": "academy",
     "password": "AcademyGestion123!",
-    "database": "academy-gestion"
+    "database": "academy-gestion",
+    "portAPP": 3006
 }
