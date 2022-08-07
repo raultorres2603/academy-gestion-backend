@@ -13,7 +13,7 @@ var connection = mysql.createConnection({
 router.post("/login", function (req, res, next) {
   if (req.body.username && req.body.password) {
     connection.query(
-      `SELECT COUNT(*) as cont FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}'`,
+      `SELECT COUNT(*) as cont FROM users WHERE username = '${req.body.username}'`,
       (err, resu) => {
         if (err) {
           res.send(JSON.stringify({ error: "2" }));
@@ -44,12 +44,18 @@ router.post("/login", function (req, res, next) {
                   res.send(JSON.stringify({ error: "2" }));
                   console.log(JSON.stringify({ error: "2" }));
                 } else {
-                  res.send(
-                    JSON.stringify({ message: "exist", user: resu[0].idUser })
-                  );
-                  console.log(
-                    JSON.stringify({ message: "exist", user: resu[0].idUser })
-                  );
+                  if (resu[0].idUser > 0) {
+                    res.send(
+                      JSON.stringify({ message: "exist", user: resu[0].idUser })
+                    );
+                    console.log(
+                      JSON.stringify({ message: "exist", user: resu[0].idUser })
+                    );
+                  } else {
+                    res.send(
+                      JSON.stringify({ error: "4" })
+                    );
+                  }
                 }
               }
             );
