@@ -11,9 +11,9 @@ var connection = mysql.createConnection({
 
 /* GET home page. */
 router.post("/login", function (req, res, next) {
-  if (req.body.username && req.body.password) {
+  if ((req.body.username && req.body.password) && (req.body.username.length > 5 && req.body.password.length > 5)) {
     connection.query(
-      `SELECT COUNT(*) as cont FROM users WHERE username = '${req.body.username}'`,
+      `SELECT COUNT(*) as cont FROM users WHERE username = '${req.body.username.toUpperCase()}'`,
       (err, resu) => {
         if (err) {
           res.send(JSON.stringify({ error: "2" }));
@@ -21,7 +21,7 @@ router.post("/login", function (req, res, next) {
         } else {
           if (resu[0].cont == 0) {
             connection.query(
-              `INSERT INTO users(username, password) VALUES('${req.body.username}','${req.body.password}')`,
+              `INSERT INTO users(username, password) VALUES('${req.body.username.toUpperCase()}','${req.body.password.toUpperCase()}')`,
               (err, resu) => {
                 if (err) {
                   res.send(JSON.stringify({ error: "3" }));
@@ -38,7 +38,7 @@ router.post("/login", function (req, res, next) {
             );
           } else {
             connection.query(
-              `SELECT idUser FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}'`,
+              `SELECT idUser FROM users WHERE username = '${req.body.username.toUpperCase()}' AND password = '${req.body.password.toUpperCase()}'`,
               (err, resu) => {
                 if (err) {
                   res.send(JSON.stringify({ error: "2" }));
