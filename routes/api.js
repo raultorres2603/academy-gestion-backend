@@ -44,18 +44,25 @@ router.post("/login", function (req, res, next) {
                   res.send(JSON.stringify({ error: "2" }));
                   console.log(JSON.stringify({ error: "2" }));
                 } else {
-                  if (resu[0].idUser > 0) {
-                    res.send(
-                      JSON.stringify({ message: "exist", user: resu[0].idUser })
-                    );
-                    console.log(
-                      JSON.stringify({ message: "exist", user: resu[0].idUser })
-                    );
+                  if (typeof resu[0] !== 'undefined') {
+                    if (resu[0].idUser > 0) {
+                      res.send(
+                        JSON.stringify({ message: "exist", user: resu[0].idUser })
+                      );
+                      console.log(
+                        JSON.stringify({ message: "exist", user: resu[0].idUser })
+                      );
+                    } else {
+                      res.send(
+                        JSON.stringify({ error: "4" })
+                      );
+                    }
                   } else {
                     res.send(
                       JSON.stringify({ error: "4" })
                     );
                   }
+                  
                 }
               }
             );
