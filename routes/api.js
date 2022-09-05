@@ -78,15 +78,27 @@ router.post("/login", function (req, res, next) {
 });
 
 router.post("/userInfo", function (req, res, next) {
-  connection.query(`SELECT firstName, secondName FROM users WHERE idUser = ${req.body.idUser}`, (err, resu) => {
+  connection.query(`SELECT firstName, secondName, type, nif, tel, country, city FROM users WHERE idUser = ${req.body.idUser}`, (err, resu) => {
     if (err) {
       res.send(JSON.stringify({ error: "1" }));
       console.log(JSON.stringify({ error: "1" }));
     } else {
-      res.send(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName }));
-      console.log(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName }));
+      res.send(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName, type: resu[0].type, nif: resu[0].nif, tel: resu[0].tel, country: resu[0].country, city: resu[0].city }));
+      console.log(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName, type: resu[0].type, nif: resu[0].nif, tel: resu[0].tel, country: resu[0].country, city: resu[0].city }));
     }
   });
+});
+
+router.post("/updateUser", function (req, res, next) {
+  connection.query(`UPDATE users SET firstName = '${req.body.firstName}', secondName = '${req.body.secondName}', nif = '${req.body.nif}', tel = '${req.body.tel}', country = '${req.body.country}', city = '${req.body.city}' WHERE idUser = ${window.atob(req.body.idUser)}`, (err, resu) => {
+    if (err) {
+      res.send(JSON.stringify({ error: "1" }));
+      console.log(JSON.stringify({ error: "1" }));
+    } else {
+      res.send(JSON.stringify({ message: "ok" }));
+      console.log(JSON.stringify({ message: "ok" }));
+    }
+  })
 });
 
 module.exports = router;
