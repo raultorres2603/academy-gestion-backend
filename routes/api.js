@@ -77,4 +77,16 @@ router.post("/login", function (req, res, next) {
   }
 });
 
+router.post("/userInfo", function (req, res, next) {
+  connection.query(`SELECT firstName, secondName FROM users WHERE idUser = ${req.body.idUser}`, (err, resu) => {
+    if (err) {
+      res.send(JSON.stringify({ error: "1" }));
+      console.log(JSON.stringify({ error: "1" }));
+    } else {
+      res.send(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName }));
+      console.log(JSON.stringify({ firstName: resu[0].firstName, secondName: resu[0].secondName }));
+    }
+  });
+});
+
 module.exports = router;
