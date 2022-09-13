@@ -90,7 +90,7 @@ router.post("/userInfo", function (req, res, next) {
 });
 
 router.post("/updateUser", function (req, res, next) {
-  connection.query(`UPDATE users SET firstName = '${req.body.firstName}', secondName = '${req.body.secondName}', nif = '${req.body.nif}', tel = '${req.body.tel}', country = '${req.body.country}', city = '${req.body.city}' WHERE idUser = ${window.atob(req.body.idUser)}`, (err, resu) => {
+  connection.query(`UPDATE users SET firstName = '${req.body.firstName}', secondName = '${req.body.secondName}', nif = '${req.body.nif}', tel = '${req.body.tel}', country = '${req.body.country}', city = '${req.body.city}' WHERE idUser = ${req.body.idUser}`, (err, resu) => {
     if (err) {
       res.send(JSON.stringify({ error: "1" }));
       console.log(JSON.stringify({ error: "1" }));
