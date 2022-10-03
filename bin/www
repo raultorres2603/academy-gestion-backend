@@ -21,18 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
-/**
- * Create Socket
- */
- const { Server } = require("socket.io");
- const io = new Server(server);
  
- /**
-  * Socket functions
-  */
- 
-
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -93,6 +82,20 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
+ const { Server } = require("socket.io");
+ const io = new Server(server, {
+   cors: {
+     origin: '*',
+   }
+ });
+ 
+ io.on('connection', (socket) => {
+   console.log(socket);
+   socket.on('joinRoom', (rooms) => {
+     console.log("socket: " + socket.id + " Rooms: " + rooms);
+   })
+ })
+
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
@@ -100,3 +103,5 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+module.exports = server;
