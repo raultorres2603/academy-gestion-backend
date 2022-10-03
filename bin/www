@@ -92,8 +92,6 @@ function onError(error) {
  io.on('connection', (socket) => {
    socket.on('joinRoom', (rooms) => {
     socket.join('mainMenuRoom');
-    socket.emit('roomJoined', [rooms]);
-    console.log("RoomJoined");
    })
  })
 
