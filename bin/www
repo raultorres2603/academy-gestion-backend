@@ -90,9 +90,10 @@ function onError(error) {
  });
  
  io.on('connection', (socket) => {
-   console.log(socket);
    socket.on('joinRoom', (rooms) => {
-     console.log("socket: " + socket.id + " Rooms: " + rooms);
+    socket.join('mainMenuRoom');
+    socket.emit('roomJoined', [rooms]);
+    console.log("RoomJoined");
    })
  })
 
