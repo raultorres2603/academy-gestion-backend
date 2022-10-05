@@ -91,7 +91,9 @@ function onError(error) {
  
  io.on('connection', (socket) => {
    socket.on('joinRoom', (rooms) => {
-    socket.join('mainMenuRoom');
+    rooms.forEach(room => {
+      socket.join(room);
+    });
    })
  })
 

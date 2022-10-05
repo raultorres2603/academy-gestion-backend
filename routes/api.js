@@ -78,7 +78,7 @@ router.post("/login", function (req, res, next) {
 });
 
 router.post("/userInfo", function (req, res, next) {
-  connection.query(`SELECT firstName, secondName, type, nif, tel, country, city FROM users WHERE idUser = ${req.body.idUser}`, (err, resu) => {
+  connection.query(`SELECT firstName, idUser, secondName, type, nif, tel, country, city FROM users WHERE idUser = ${req.body.idUser}`, (err, resu) => {
     if (err) {
       res.send(JSON.stringify({ error: "1" }));
       console.log(JSON.stringify({ error: "1" }));
